@@ -7,6 +7,10 @@ float* Vector::GetVector() {
     return vector;
 }
 
+float Matrix::get(int r, int c) const {
+        return matrix[r * width + c];
+    }
+
 Vector Vector::Copy() const {
     float* arr = new float[sizeof(vector)];
         for(int i = 0; i < sizeof(arr); i++) {
