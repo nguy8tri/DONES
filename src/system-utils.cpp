@@ -1,54 +1,44 @@
 #include "system-utils.hpp"
 #include "system.hpp"
 
-#include <map>
+#include <vector>
 #include <cassert>
 
-struct BC {
-    float h;
-    int temperature;
-};
-
-struct flux {
-    bool isBC;
-    int position;
-    float fluxMult;
-};
 
 // We will handle const temp condition later
-std::vector<struct flux> Boundaries(System sys, int position) {
-    std::vector<struct flux> result;
+std::vector<flux> Boundaries(System system, int position) {
+    std::vector<flux> result;
 
-    if(position - sys.system->Width() > 0) {
-        result.push_back({true, position - sys.system->Width(), sys.Dx * sys.boundaries[0].h}); // up
+    if(position - system.system->Width() > 0) {
+        result.push_back({true, position - system.system->Width(), system.Dx * system.boundaries[0].h}); // up
     } else {
-        result.push_back({false, position - sys.system->Width(), sys.k / sys.Dy}); // up
+        result.push_back({false, position - system.system->Width(), system.k / system.Dy}); // up
     }
 
-    if(position + sys.system->Width() >= sys.system->Height() * sys.system->Width()) {
-        result.push_back({true, position + sys.system->Width(), sys.Dx * sys.boundaries[1].h}); // down
+    if(position + system.system->Width() >= system.system->Height() * system.system->Width()) {
+        result.push_back({true, position + system.system->Width(), system.Dx * system.boundaries[1].h}); // down
     } else {
-        result.push_back({false, position + sys.system->Width(), sys.k / sys.Dy}); // down
+        result.push_back({false, position + system.system->Width(), system.k / system.Dy}); // down
     }
 
-    if(position % sys.system->Width() == 0) {
-        result.push_back({true, position - 1, sys.Dy * sys.boundaries[2].h}); // left
+    if(position % system.system->Width() == 0) {
+        result.push_back({true, position - 1, system.Dy * system.boundaries[2].h}); // left
     } else {
-        result.push_back({false, position - 1, sys.Dy * sys.k / sys.Dx}); // left
+        result.push_back({false, position - 1, system.Dy * system.k / system.Dx}); // left
     }
 
-    if((position + 1) % sys.system->Width() == 0) {
-        result.push_back({true, position + 1, sys.Dy * sys.boundaries[3].h}); // right
+    if((position + 1) % system.system->Width() == 0) {
+        result.push_back({true, position + 1, system.Dy * system.boundaries[3].h}); // right
     } else {
-        result.push_back({false, position + 1, sys.Dy * sys.k / sys.Dx}); // right
+        result.push_back({false, position + 1, system.Dy * system.k / system.Dx}); // right
     }
 
-    if(position + sys.system->Width() >= sys.system->Height() * sys.system->Width() || position % sys.system->Width() == 0) {
+    if(position + system.system->Width() >= system.system->Height() * system.system->Width() || position % system.system->Width() == 0) {
         result.at(0).fluxMult = result.at(0).fluxMult / 2;
         result.at(1).fluxMult = result.at(1).fluxMult / 2;
     }
 
-    if(position % sys.system->Width() == 0 || (position + 1) % sys.system->Width() == 0) {
+    if(position % system.system->Width() == 0 || (position + 1) % system.system->Width() == 0) {
         result.at(2).fluxMult = result.at(2).fluxMult / 2;
         result.at(3).fluxMult = result.at(3).fluxMult / 2;
     }
@@ -57,7 +47,7 @@ std::vector<struct flux> Boundaries(System sys, int position) {
 }
 
 float* calculateFluxes(System system, int position, int size) {
-    std::vector<struct flux> fluxes = Boundaries(system, position);
+    std::vector<flux> fluxes = Boundaries(system, position);
     float row[size];
     for(int i = 0; i < sizeof(fluxes); i++) {
         struct flux f = fluxes.at(i);
@@ -68,4 +58,5 @@ float* calculateFluxes(System system, int position, int size) {
             row[size - 1] -= f.fluxMult * system.boundaries[i].temperature;
         }
     }
+    return row;
 }

@@ -3,6 +3,10 @@
 #include <cassert>
 #include <iostream>
 
+Vector::~Vector() { delete vector; }
+
+Matrix::~Matrix() { delete matrix; }
+
 float* Vector::GetVector() {
     return vector;
 }

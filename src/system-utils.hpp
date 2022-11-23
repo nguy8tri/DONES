@@ -1,13 +1,24 @@
 #ifndef SYSTEM_UTILS_H
 #define SYSTEM_UTILS_H
 
-#include <map>
+#include "system.hpp"
 
-struct BC;
+#include <vector>
 
-struct flux;
+class System;
 
-std::map<int, float> Boundaries(System sys, int position, BC* BC);
+struct BC {
+    float h;
+    int temperature;
+};
 
-float CalculateFluxes(System system, int r, int c, int dir);
+struct flux {
+    bool isBC;
+    int position;
+    float fluxMult;
+};
+
+std::vector<flux> Boundaries(System system, int position);
+
+float CalculateFluxes(System system, int position, int size);
 #endif

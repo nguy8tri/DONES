@@ -6,12 +6,15 @@
 
 #include <vector>
 
+struct BC;
+
+
 class System {
 public:
-    virtual ~System();
+    ~System();
     System();
-    System(BC* BC, float k) : boundaries(BC) , k(k) {};
-    System(Matrix* sys, BC* BC, float k) : system(sys) , boundaries(BC) , k(k) {};
+    System(BC *boundary, float k) : boundaries(boundary) , k(k) {};
+    System(Matrix* sys, BC *boundary, float k) : system(sys) , boundaries(boundary) , k(k) {};
     Matrix* system;
     BC* boundaries;
     float k;
@@ -22,8 +25,8 @@ public:
 class SystemND : public System {
     ~SystemND();
     SystemND();
-    SystemND(BC* BC, float k) : System(BC, k) {};
-    SystemND(Matrix* sys, BC* BC, float k) : System(sys, BC, k) {
+    SystemND(BC *boundary, float k) : System(boundary, k) {};
+    SystemND(Matrix* sys, BC *boundary, float k) : System(sys, boundary, k) {
         N = sys->Height();
     }
 
