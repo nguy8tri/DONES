@@ -1,21 +1,28 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "system-utils.hpp"
 #include "matrix.hpp"
 
 #include <vector>
 
-struct BC;
+struct BC {
+    float h;
+    int temperature;
+};
 
+struct flux {
+    bool isBC;
+    int position;
+    float fluxMult;
+};
 
 class System {
 public:
     ~System();
     System();
     System(BC *boundary, float k) : boundaries(boundary) , k(k) {};
-    System(Matrix* sys, BC *boundary, float k) : system(sys) , boundaries(boundary) , k(k) {};
-    Matrix* system;
+    System(Matrix* sys, BC *boundary, float k) : distro(sys) , boundaries(boundary) , k(k) {};
+    Matrix* distro;
     BC* boundaries;
     float k;
     float Dx;
@@ -23,15 +30,21 @@ public:
 };
 
 class SystemND : public System {
+public:
     ~SystemND();
     SystemND();
     SystemND(BC *boundary, float k) : System(boundary, k) {};
-    SystemND(Matrix* sys, BC *boundary, float k) : System(sys, boundary, k) {
-        N = sys->Height();
+    SystemND(Matrix* sys, BC *boundary, float k, int n) : System(sys, boundary, k) {
+        N = n;
     }
-
+    int GetDimension();
+private:
     int N;
 };
+
+std::vector<flux> Boundaries(System system, int position);
+
+float* CalculateFluxes(System system, int position, int size, int &solution);
 
 /*
 class SystemT : public System {

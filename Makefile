@@ -7,11 +7,13 @@ BIN := dones
 
 all: $(BIN)
 
+CXXFLAGS := $(CXXFLAGS) -Ivendor -Isrc -Idocumentation -Wall -Wextra -Wno-missing-field-initializers -pedantic --std=c++11
+
 $(BIN): $(OBJS)
-	$(CXX) -o $(BIN) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(BIN) $(OBJS)
 
 %.o: %.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

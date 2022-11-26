@@ -6,11 +6,12 @@ class Vector {
 public:
     ~Vector();
     Vector();
-    Vector(float* arr) : vector(arr) {};
+    Vector(float* arr, int size) : vector(arr), length(size) {};
     float* GetVector();
     Vector Copy() const;
-private:
+    void Display();
     float* vector;
+    int length;
 };
 
 class Matrix {
@@ -18,6 +19,7 @@ public:
     ~Matrix();
     Matrix();
     Matrix(float* arr, int r, int c) : matrix(arr), height(r), width(c) {};
+    Matrix(Vector* arr, int r, int c) : matrix(arr->GetVector()), height(r), width(c) {};
     Vector GaussianSolve(Vector v) const;
     void Load(float arr[]);
     void Display() const;

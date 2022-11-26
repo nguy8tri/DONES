@@ -3,9 +3,9 @@
 #include <cassert>
 #include <iostream>
 
-Vector::~Vector() { delete vector; }
+Vector::~Vector() {}
 
-Matrix::~Matrix() { delete matrix; }
+Matrix::~Matrix() {}
 
 float* Vector::GetVector() {
     return vector;
@@ -17,38 +17,42 @@ float Matrix::get(int r, int c) const {
 
 Vector Vector::Copy() const {
     float* arr = new float[sizeof(vector)];
-        for(int i = 0; i < sizeof(arr); i++) {
+        for(int i = 0; i < length; i++) {
             arr[i] = vector[i];
         }
-        return Vector(arr);
+    return Vector(arr, length);
 }
 
 Vector Matrix::GaussianSolve(Vector v) const {
     if(height != width) {
         throw "Error - No unique solution";
     }
-    float* solution = new float[height * width];
-    int s = 0;
-    float* copyM = Copy().matrix;
-    float* copyV = v.Copy().GetVector();
+    // v.Display();
+    float *b = v.vector;
     for(int j = 0; j < width; j++) {
         for(int i = j + 1; i < height; i++) {
-            int mult = copyM[i * width + j] / copyM[j * width + j];
+            float mult = matrix[i * width + j] / matrix[j * width + j];
+            // std::cout << matrix[i * width + j] << " " << matrix[j * width + j] << std::endl;
             for(int k = j + 1; k < width; k++) {
-                copyM[i * width + k] -= mult * copyM[j * width + k];
+                matrix[i * width + k] -= mult * matrix[j * width + k];
             }
-            copyV[i] -= mult * copyV[j];
+            b[i] -= mult * b[j];
         }
     }
+    // Display();
+    // v.Display();
     for(int j = height - 1; j >= 0; j--) {
-        int sum = 0;
+        float sum = 0;
         int i;
         for(i = width - 1; i > j; i--) {
-            sum += copyV[i] * copyM[i * width + j];
+            sum += b[i] * matrix[j * width + i];
+            // std::cout << b[i] << " " << matrix[j * width + i] << std::endl;
         }
-        copyV[i] = (copyV[i] - sum) / copyM[i * width + j];
+        // std::cout << "b: " << b[j] << " " << sum << " " << matrix[j * width + i] << std::endl;
+        b[j] = (b[j] - sum) / matrix[j * width + i];
+        // std::cout << std::endl;
     }
-    return copyV;
+    return *(new Vector(b, v.length));
 }
 
 Matrix Matrix::Copy() const {
@@ -56,10 +60,11 @@ Matrix Matrix::Copy() const {
         for(int i = 0; i < height * width; i++) {
             arr[i] = matrix[i];
         }
-        return Matrix(arr, height, width);
+    return Matrix(arr, height, width);
 }
 
 void Matrix::Display() const {
+    // std::cout << height << " " << width << std::endl;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             std::cout << matrix[i * width + j] << " ";
@@ -68,3 +73,9 @@ void Matrix::Display() const {
     }
 }
 
+void Vector::Display() {
+    for(int i = 0; i < length; i++) {
+        std::cout << vector[i] << std::endl;
+    }
+    std::cout << std::endl;
+}
