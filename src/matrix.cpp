@@ -67,7 +67,7 @@ void Matrix::Display() const {
     // std::cout << height << " " << width << std::endl;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
-            std::cout << matrix[i * width + j] << " ";
+            printf("%-8.4f ", matrix[i * width + j]);
         }
         std::cout << std::endl;
     }

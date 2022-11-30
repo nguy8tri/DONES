@@ -42,9 +42,9 @@ private:
     int N;
 };
 
-std::vector<flux> Boundaries(System system, int position);
+std::vector<flux> Boundaries(SystemND system, int position);
 
-float* CalculateFluxes(System system, int position, int size, int &solution);
+float* CalculateFluxes(SystemND system, int position, int size, int &solution);
 
 /*
 class SystemT : public System {

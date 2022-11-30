@@ -23,7 +23,10 @@ System* Solve(SystemND system, std::set<int> exclude) {
         }
     }
     Matrix *eqs = new Matrix(A, m->Width() * m->Height(), m->Width() * m->Height());
-    eqs->Display();
+    
+    // Debugging
+    // eqs->Display();
+    
     Vector *sol = new Vector(b, sizeof(b));
     Vector x = eqs->GaussianSolve(*sol);
 
