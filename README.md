@@ -5,15 +5,21 @@ This is a primative thermal network simulation software. This software is meant 
 # Running DONES
 
 - Make sure you have a Linux System of Subsystem, Windows Subsystem for Linux (WSL) for example, which can be downloaded withn Visual Studio Code (VS Code).
-- Install g++. On your linux terminal: `sudo apt install g++`
-- Install make. On your linux terminal: `sudo apt install make`
-- Install git. On your linux terminal: `sudo apt install git`. Make sure you sign in.
+- Install g++. On Ubuntu: `sudo apt install g++`
+- Install make. On Ubuntu: `sudo apt install make`
+- Install cmake. On Ubuntu: `sudo apt install cmake`
+- Install python3.8. On Ubuntu: `sudo apt install python3.8` and `sudo apt install python3.8-dev`
+- Install git. On Ubuntu: `sudo apt install git`. Make sure you sign in.
 - Clone this repositiory. On your linux terminal: `git clone https://github.com/nguy8tri/DONES`. Then, `cd dones`.
-- Run `make` and `./dones`, and it should give a distribution based on entries inside of main (Interface coming soon).
+- Then, we need to compile our C++ files. On Ubuntu:
+    `mkdir build`
+    `cd build`
+    `cmake ..`
+- Then, `make`, `cd ..` and `python3.8 PythonMain.py`, you will be guided with the interface. To rerun the program, you only need to repeat `python3.8 PythonMain.py`
 
 # Specifications
 
-- **Dimensions**: All objects are 3D, but certain objects can be simulated as 2D or 1D objects. Our simulation can handle:
+- **Dimensions**: All objects are 3D, but certain objects can be modeled/simulated as 2D or 1D objects. Our simulation can handle:
     - [ ] 1 Dimension
     - [X] 2 Dimensions
     - [ ] 3 Dimensions

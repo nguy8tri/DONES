@@ -19,8 +19,8 @@ std::vector<float> translate(int N, std::vector<float> dims, float k, std::vecto
     */
 
     
-    int width = (int) std::round(dims[0] / dims[2]);
-    int height = (int) std::round(dims[1] / dims[3]);
+    int width = (int) std::round(dims[0] / dims[2]) + 1;
+    int height = (int) std::round(dims[1] / dims[3]) + 1;
     // std::cout << xLength << " " << Dx << " " << xLength / Dx << " " << std::round(xLength / Dx) << std::endl;
     std::set<int> exclude;
     float *array = (float *) malloc(width * height * sizeof(float));
