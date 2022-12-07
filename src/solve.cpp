@@ -10,6 +10,12 @@ System* Solve(SystemND system, std::set<int> exclude) {
     float *A = (float *) malloc(m->Width() * m->Width() * m->Height() * m->Height() * sizeof(float));
 
     for(int i = 0; i < m->Width() * m->Height(); i++) {
+        for(int j = 0; j < m->Width() * m->Height(); j++) {
+            A[i * m->Width() * m->Height() + j] = 0;
+        }
+    }
+
+    for(int i = 0; i < m->Width() * m->Height(); i++) {
         if(exclude.find(i) == exclude.end()) {
             int solution = 0;
             float *fluxes = CalculateFluxes(system, i, m->Width() * m->Height(), solution);

@@ -1,2 +1,5 @@
 dones
 *.o
+*.so
+**/build
+c_cpp_properties.json

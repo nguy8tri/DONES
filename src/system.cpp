@@ -57,6 +57,9 @@ std::vector<flux> Boundaries(SystemND system, int position) {
 float* CalculateFluxes(SystemND system, int position, int size, int &solution) {
     std::vector<flux> fluxes = Boundaries(system, position);
     float *row = (float *) malloc(sizeof(float) * size);
+    for(int i = 0; i < size; i++) {
+        row[i] = 0;
+    }
     for(int i = 0; i < 4; i++) {
         struct flux f = fluxes.at(i);
         row[position] -= f.fluxMult;

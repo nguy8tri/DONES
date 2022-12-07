@@ -31,6 +31,9 @@ public:
     int Width() {
         return width;
     }
+    const float* getMatrix() {
+        return matrix;
+    }
 private:
     float* matrix;
     int height;
