@@ -1,8 +1,8 @@
 #include "main.hpp"
 
-std::vector<float> translate(int N, std::vector<float> dims, float k, std::vector<float> h, std::vector<float> T) {
-    BC *boundaries = (BC *) malloc(4 * sizeof(BC));
-    for(int i = 0; i < 4; i++) {
+std::vector<float> translate(int N, std::vector<float> dims, std::vector<int> systemDims, float k, std::vector<float> h, std::vector<float> T) {
+    BC *boundaries = (BC *) malloc(2 * N * sizeof(BC));
+    for(int i = 0; i < 2 * N; i++) {
         boundaries[i].h = h[i];
         boundaries[i].temperature = T[i];
     }
@@ -19,14 +19,15 @@ std::vector<float> translate(int N, std::vector<float> dims, float k, std::vecto
     */
 
     
-    int width = (int) std::round(dims[0] / dims[2]) + 1;
-    int height = (int) std::round(dims[1] / dims[3]) + 1;
+    int width = systemDims.at(0);
+    int height = systemDims.at(1);
     // std::cout << xLength << " " << Dx << " " << xLength / Dx << " " << std::round(xLength / Dx) << std::endl;
     std::set<int> exclude;
     float *array = (float *) malloc(width * height * sizeof(float));
     for(int i = 0; i < width * height; i++) {
         array[i] = 0;
     }
+
     /*
     std::cout << "w: " << width << std::endl;
     std::cout << "h: " << height << std::endl;
@@ -37,10 +38,10 @@ std::vector<float> translate(int N, std::vector<float> dims, float k, std::vecto
     */
 
     for(int i = 0; i < 2 * N; i++) {
-        if(h[i] == 0.0f && T[i] != 0.0f) {
-            if(i < 2) {
+        if(h[i] == -1) {
+            if(i > 1) {
                 int offset = 0;
-                if(i == 1) {
+                if(i == 3) {
                     offset = width * height - width;
                 }
                 for(int j = 0; j < width; j++) {
@@ -49,7 +50,7 @@ std::vector<float> translate(int N, std::vector<float> dims, float k, std::vecto
                 }
             } else {
                 int offset = 0;
-                if(i == 3) {
+                if(i == 1) {
                     offset = width - 1;
                 }
                 for(int j = 0; j < height; j++) {
@@ -79,11 +80,11 @@ std::vector<float> translate(int N, std::vector<float> dims, float k, std::vecto
     // m->Display();
     
     SystemND *system = new SystemND(m, boundaries, k, N);
-    system->Dx = dims[2];
+    system->Dx = dims[1];
     system->Dy = dims[3];
 
     Matrix *solution = Solve(*system, exclude)->distro;
-    // solution->Display();
+    solution->Display();
     std::vector<float> result;
     for(int i = 0; i < height * width; i++) {
         result.push_back(solution->get(i / width, i % width));

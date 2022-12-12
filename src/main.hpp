@@ -9,6 +9,6 @@
 
 int main();
 
-std::vector<float> translate(int N, std::vector<float> dims, float k, std::vector<float> h, std::vector<float> T);
+std::vector<float> translate(int N, std::vector<float> dims, std::vector<int> systemDims, float k, std::vector<float> h, std::vector<float> T);
 
 #endif

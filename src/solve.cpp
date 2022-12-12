@@ -31,9 +31,10 @@ System* Solve(SystemND system, std::set<int> exclude) {
     Matrix *eqs = new Matrix(A, m->Width() * m->Height(), m->Width() * m->Height());
     
     // Debugging
-    // eqs->Display();
+    eqs->Display();
     
-    Vector *sol = new Vector(b, sizeof(b));
+    Vector *sol = new Vector(b, m->Width() * m->Height());
+    // sol->Display();
     Vector x = eqs->GaussianSolve(*sol);
 
     return new SystemND(new Matrix(&x, m->Height(), m->Width()), system.boundaries, system.k, system.GetDimension());
