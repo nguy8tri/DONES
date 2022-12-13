@@ -15,7 +15,7 @@ This is a primative thermal network simulation software. This software is meant 
     `mkdir build`
     `cd build`
     `cmake ..`
-- Then, `make`, `cd ..` and `python3.8 PythonMain.py`, you will be guided with the interface. To rerun the program, you only need to repeat `python3.8 PythonMain.py`
+- Then, `make`, and `python3.8 PythonMain.py`, you will be guided with the interface. To rerun the program, you only need to repeat `python3.8 PythonMain.py`
 
 # Specifications
 
