@@ -1,0 +1,13 @@
+dones
+*.o
+*.so
+
+# build folder
+**/CMakeFiles
+**/build/pybind11
+**/build/*.txt
+*.cmake
+**build/Makefile
+
+#.vscode filder
+c_cpp_properties.json
