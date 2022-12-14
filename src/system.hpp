@@ -38,9 +38,9 @@ public:
         N = n;
     }
     int GetDimension();
-    std::vector<flux> Boundaries(int position);
     float* CalculateFluxes(int position, int size, int &solution);
 private:
+    std::vector<flux> Boundaries(int position);
     float getFlux(int position, int dir);
     void halfFlux(int position, std::vector<flux> &fluxes);
     int N;

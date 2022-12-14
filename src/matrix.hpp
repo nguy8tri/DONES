@@ -8,7 +8,6 @@ public:
     Vector();
     Vector(float* arr, int size) : vector(arr), length(size) {};
     float* GetVector();
-    Vector Copy() const;
     void Display();
     float* vector;
     int length;
@@ -23,7 +22,6 @@ public:
     Vector GaussianSolve(Vector v) const;
     Vector GaussSeidel(Vector v) const;
     void Display() const;
-    Matrix Copy() const;
     float get(int r, int c) const;
     int Height() {
         return height;

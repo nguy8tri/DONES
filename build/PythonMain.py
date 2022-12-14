@@ -2,7 +2,7 @@ import array as arr
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors
-# import time
+import time
 
 import sys
 sys.path.append("build")
@@ -41,11 +41,11 @@ for i in range(2 * N):
 
 # Call Analysis -> Returns the array of T distributions, NOT System
 
-# begin = time.perf_counter()
+begin = time.perf_counter()
 
 distro = translate.t(N, l, systemDims, k, h, T)
 
-# end = time.perf_counter()
+end = time.perf_counter()
 
 print("Nodes: " + str(systemDims[0] * systemDims[1]))
 print(f"Time: {end - begin:0.4f} seconds")
@@ -76,11 +76,11 @@ y = np.linspace(0, l[2], height)
 fig = plt.figure(1)
 x, y = np.meshgrid(x, y)
 cf = plt.contourf(x,y,object, cmap='inferno', levels = np.linspace(min, max, 20))
-norm= matplotlib.colors.Normalize(min, max)
+norm = matplotlib.colors.Normalize(min, max)
 sm = plt.cm.ScalarMappable(norm=norm, cmap = cf.cmap)
 sm.set_array([])
 cb = fig.colorbar(sm, ticks=cf.levels)
-cb.set_label("Temperature (K)")
+cb.set_label("Temperature (C)")
 '''
 cbar.locator = LinearLocator(numticks=11)
 cbar.update_ticks()

@@ -12,15 +12,7 @@ float* Vector::GetVector() {
 }
 
 float Matrix::get(int r, int c) const {
-        return matrix[r * width + c];
-    }
-
-Vector Vector::Copy() const {
-    float* arr = new float[sizeof(vector)];
-        for(int i = 0; i < length; i++) {
-            arr[i] = vector[i];
-        }
-    return Vector(arr, length);
+    return matrix[r * width + c];
 }
 
 Vector Matrix::GaussianSolve(Vector v) const {
@@ -55,15 +47,6 @@ Vector Matrix::GaussianSolve(Vector v) const {
     return *(new Vector(b, v.length));
 }
 
-
-
-Matrix Matrix::Copy() const {
-    float* arr = new float[height * width];
-        for(int i = 0; i < height * width; i++) {
-            arr[i] = matrix[i];
-        }
-    return Matrix(arr, height, width);
-}
 
 void Matrix::Display() const {
     // std::cout << height << " " << width << std::endl;
