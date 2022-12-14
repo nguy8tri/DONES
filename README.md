@@ -8,14 +8,14 @@ This is a primative thermal network simulation software. This software is meant 
 - Install g++. On Ubuntu: `sudo apt install g++`
 - Install make. On Ubuntu: `sudo apt install make`
 - Install cmake. On Ubuntu: `sudo apt install cmake`
-- Install python3.8. On Ubuntu: `sudo apt install python3.8` and `sudo apt install python3.8-dev`
+- Install python3.8. On Ubuntu: `sudo apt install python3.8`, `sudo apt install python3.8-dev`, `sudo apt install python3-numpy` and `sudo apt install python3-matplotlib`
 - Install git. On Ubuntu: `sudo apt install git`. Make sure you sign in.
 - Clone this repositiory. On your linux terminal: `git clone https://github.com/nguy8tri/DONES`. Then, `cd dones`.
 - Then, we need to compile our C++ files. On Ubuntu:
     `mkdir build`
     `cd build`
     `cmake ..`
-- Then, `make`, `cd ..` and `python3.8 PythonMain.py`, you will be guided with the interface. To rerun the program, you only need to repeat `python3.8 PythonMain.py`
+- Then, `make`, and `python3.8 PythonMain.py`, you will be guided with the interface. To rerun the program, you only need to repeat `python3.8 PythonMain.py`
 
 # Specifications
 
