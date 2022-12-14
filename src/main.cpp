@@ -84,7 +84,7 @@ std::vector<float> translate(int N, std::vector<float> dims, std::vector<int> sy
     system->Dy = dims[3];
 
     Matrix *solution = Solve(*system, exclude)->distro;
-    solution->Display();
+    // solution->Display();
     std::vector<float> result;
     for(int i = 0; i < height * width; i++) {
         result.push_back(solution->get(i / width, i % width));

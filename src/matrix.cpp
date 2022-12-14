@@ -55,6 +55,8 @@ Vector Matrix::GaussianSolve(Vector v) const {
     return *(new Vector(b, v.length));
 }
 
+
+
 Matrix Matrix::Copy() const {
     float* arr = new float[height * width];
         for(int i = 0; i < height * width; i++) {

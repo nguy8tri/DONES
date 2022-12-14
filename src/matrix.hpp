@@ -21,7 +21,7 @@ public:
     Matrix(float* arr, int r, int c) : matrix(arr), height(r), width(c) {};
     Matrix(Vector* arr, int r, int c) : matrix(arr->GetVector()), height(r), width(c) {};
     Vector GaussianSolve(Vector v) const;
-    void Load(float arr[]);
+    Vector GaussSeidel(Vector v) const;
     void Display() const;
     Matrix Copy() const;
     float get(int r, int c) const;

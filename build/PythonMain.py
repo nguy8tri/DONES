@@ -1,10 +1,8 @@
 import array as arr
 import numpy as np
-import scipy.linalg as sc
 import matplotlib.pyplot as plt
 import matplotlib.colors
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.ticker import LinearLocator
+# import time
 
 import sys
 sys.path.append("build")
@@ -43,7 +41,14 @@ for i in range(2 * N):
 
 # Call Analysis -> Returns the array of T distributions, NOT System
 
+# begin = time.perf_counter()
+
 distro = translate.t(N, l, systemDims, k, h, T)
+
+# end = time.perf_counter()
+
+print("Nodes: " + str(systemDims[0] * systemDims[1]))
+print(f"Time: {end - begin:0.4f} seconds")
 
 # print(str(width) + " " + str(height) + " " + str(len(distro)))
 
@@ -65,8 +70,8 @@ for i in range(height):
 x = np.linspace(0, l[0], width)
 y = np.linspace(0, l[2], height)
 
-print(x)
-print(y)
+# print(x)
+# print(y)
 
 fig = plt.figure(1)
 x, y = np.meshgrid(x, y)
@@ -85,7 +90,12 @@ plt.ylabel('Width (m)')
 plt.title('Temperature Distribution')
 plt.show()
 
+f = open("heatDistro.txt", "w")
 for i in range(height):
     for j in range(width):
-        print("%-8.3f "% (object[i, j]), end=' ')
-    print()
+        # print("%-8.3f "% (object[i, j]), end=' ')
+        f.write(str(object[i, j]) + " ")
+    # print()
+    f.write("\n")
+f.write("\n")
+f.close()

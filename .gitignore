@@ -1,6 +1,7 @@
 dones
 *.o
 *.so
+*.png
 
 # build folder
 **/CMakeFiles

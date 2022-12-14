@@ -18,7 +18,7 @@ System* Solve(SystemND system, std::set<int> exclude) {
     for(int i = 0; i < m->Width() * m->Height(); i++) {
         if(exclude.find(i) == exclude.end()) {
             int solution = 0;
-            float *fluxes = CalculateFluxes(system, i, m->Width() * m->Height(), solution);
+            float *fluxes = system.CalculateFluxes(i, m->Width() * m->Height(), solution);
             for(int j = 0; j < m->Width() * m->Height(); j++) {
                 A[i * m->Width() * m->Height() + j] = fluxes[j];
             }
@@ -31,7 +31,7 @@ System* Solve(SystemND system, std::set<int> exclude) {
     Matrix *eqs = new Matrix(A, m->Width() * m->Height(), m->Width() * m->Height());
     
     // Debugging
-    eqs->Display();
+    // eqs->Display();
     
     Vector *sol = new Vector(b, m->Width() * m->Height());
     // sol->Display();

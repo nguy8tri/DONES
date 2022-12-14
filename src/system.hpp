@@ -38,13 +38,13 @@ public:
         N = n;
     }
     int GetDimension();
+    std::vector<flux> Boundaries(int position);
+    float* CalculateFluxes(int position, int size, int &solution);
 private:
+    float getFlux(int position, int dir);
+    void halfFlux(int position, std::vector<flux> &fluxes);
     int N;
 };
-
-std::vector<flux> Boundaries(SystemND system, int position);
-
-float* CalculateFluxes(SystemND system, int position, int size, int &solution);
 
 /*
 class SystemT : public System {
